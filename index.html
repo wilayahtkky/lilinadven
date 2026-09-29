@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemesanan Lilin Adven Korona Natal 2026</title>
+  <style>
+    :root {
+      --merah: #9b2335;
+      --merah-soft: #c45c6a;
+      --hijau: #2e6b4e;
+      --hijau-soft: #4a8c6a;
+      --cream: #fdf8f3;
+      --cream-dark: #f5ebe0;
+      --text: #3a2f2f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fdf8f3 0%, #f0e6dc 100%);
+      min-height: 100vh;
+      padding: 20px 16px;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(155, 35, 53, 0.12);
+      overflow: hidden;
+      border: 1px solid #f0e0d8;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--merah) 0%, #7a1c2a 100%);
+      color: white;
+      padding: 28px 24px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--hijau);
+      border-radius: 2px;
+    }
+
+    .header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0.3px;
+    }
+
+    .header p {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .form-body {
+      padding: 32px 24px 28px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--merah);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid #e8d5cc;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: var(--cream);
+      transition: all 0.2s ease;
+      color: var(--text);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--merah-soft);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(155, 35, 53, 0.12);
+    }
+
+    select:disabled {
+      background: #f5f0eb;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .radio-option input {
+      width: auto;
+      accent-color: var(--merah);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--hijau) 0%, #245a40 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(46, 107, 78, 0.3);
+    }
+
+    .btn-submit:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .message.success {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+    }
+
+    .message.error {
+      background: #fce8e8;
+      color: #b71c1c;
+      border: 1px solid #ef9a9a;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 20px;
+      padding: 0 10px 10px;
+    }
+
+    @media (max-width: 400px) {
+      .header h1 { font-size: 1.2rem; }
+      .form-body { padding: 28px 18px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Pemesanan Lilin Adven<br>Korona Natal 2026</h1>
+      <p>Paroki • Lingkungan</p>
+    </div>
+
+    <div class="form-body">
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="nama">Nama Pemesan</label>
+          <input type="text" id="nama" name="nama" required placeholder="Nama lengkap">
+        </div>
+
+        <div class="form-group">
+          <label for="wa">No. WhatsApp</label>
+          <input type="tel" id="wa" name="wa" required 
+                 placeholder="08xxxxxxxxxx" 
+                 pattern="^08\d{7,11}$"
+                 title="Harus diawali 08 diikuti 7-11 digit angka">
+        </div>
+
+        <div class="form-group">
+          <label for="wilayah">Wilayah</label>
+          <select id="wilayah" name="wilayah" required>
+            <option value="">-- Pilih Wilayah --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="lingkungan">Lingkungan</label>
+          <select id="lingkungan" name="lingkungan" required disabled>
+            <option value="">-- Pilih Wilayah dulu --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Pesan Lilin Adven?</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="pesan" value="Ya" required> Ya
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="pesan" value="Tidak"> Tidak
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">Kirim Pemesanan</button>
+      </form>
+
+      <div id="message" class="message"></div>
+    </div>
+
+    <div class="footer-note">
+      Maranatha • Datanglah Tuhan Yesus
+    </div>
+  </div>
+
+  <script>
+    // ========== DATA WILAYAH & LINGKUNGAN ==========
+    const data = {
+      "St. Yakobus Zebedeus": ["St. Bartolomeus", "St. Filipus", "St. Thomas", "St. Matias"],
+      "St. Andreas": ["St. Yakobus Alfeus", "St. Simon", "St. Thadeus", "St. Stefanus"],
+      "St. Theresia dari Kanak Kanak Yesus": ["St. Maria Goretti", "St. Gemma Galgani", "St. Dominikus Savio", "St. Gabriel Possenti"],
+      "St. Paulus": ["St. Silvanus", "St. Titus", "St. Barnabas", "St. Timotius"],
+      "St. Antonius Padua": ["St. Pascalis Baylon", "St. Clara", "St. Bernardinus dari Sienna", "St. Bonaventura"],
+      "St. Anna": ["St. Elizabeth-St. Martha", "St. Yohanes Don Bosco", "St. Yohanes Maria Vianney"],
+      "St. Linus": ["St. Damianus", "St. Kosmas", "St. Krisogonus", "St. Laurentius"],
+      "Santa Perawan Maria Ratu Rosari": ["SPM Bunda Penolong Abadi", "SPM Bunda Perantara Rahmat", "SPM Bunda Pengharapan", "SPM Penolong Umat Kristiani"],
+      "St. Petrus": ["St. Yohanes", "St. Lukas", "St. Markus", "St. Matius"],
+      "St. Kletus": ["St. Klemens", "St. Kornelius", "St. Siprianus", "St. Siktus"],
+      "St. Mikael": ["St. Gabriel", "St. Rafael", "St. Seravim"],
+      "St. Ursula": ["St. Perpetua", "St. Caecillia", "Ibu Teresa"],
+      "St. Ignatius Loyola": ["St. Robertus Bellarminus", "St. Yohanes de Brito", "St. Bernardinus Realino"],
+      "St. Fransiskus Xaverius": ["St. Stanislaus Kostka", "St. Yohanes Berchmans", "St. Alphonsus Rodriquez", "St. Aloysius Gonzaga"],
+      "St. Gregorius": ["St. Katharina d Sienna", "St. Ambrosius", "St. Theresia D Avilla", "St. Basilius Agung"]
+    };
+
+    // ========== ISI DROPDOWN WILAYAH ==========
+    const wilayahSelect = document.getElementById('wilayah');
+    const lingkunganSelect = document.getElementById('lingkungan');
+
+    Object.keys(data).forEach(wilayah => {
+      const opt = document.createElement('option');
+      opt.value = wilayah;
+      opt.textContent = wilayah;
+      wilayahSelect.appendChild(opt);
+    });
+
+    // ========== CASCADING ==========
+    wilayahSelect.addEventListener('change', function() {
+      const selected = this.value;
+      lingkunganSelect.innerHTML = '<option value="">-- Pilih Lingkungan --</option>';
+      
+      if (selected && data[selected]) {
+        data[selected].forEach(ling => {
+          const opt = document.createElement('option');
+          opt.value = ling;
+          opt.textContent = ling;
+          lingkunganSelect.appendChild(opt);
+        });
+        lingkunganSelect.disabled = false;
+      } else {
+        lingkunganSelect.disabled = true;
+      }
+    });
+
+    // ========== VALIDASI NO WA ==========
+    const waInput = document.getElementById('wa');
+    waInput.addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    // ========== SUBMIT ==========
+    // GANTI URL DI BAWAH INI dengan Web App URL dari Apps Script nanti
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5tjRMIZxpyzxcJz-x-tLz7KJR4AZ1XM2eMNJojUbhDAcFzsF67_yr68rSVC_murVB/exec';
+
+    const form = document.getElementById('orderForm');
+    const messageDiv = document.getElementById('message');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value.trim();
+      const wa = document.getElementById('wa').value.trim();
+      const wilayah = document.getElementById('wilayah').value;
+      const lingkungan = document.getElementById('lingkungan').value;
+      const pesan = document.querySelector('input[name="pesan"]:checked')?.value;
+
+      // Validasi No WA
+      if (!/^08\d{7,11}$/.test(wa)) {
+        showMessage('No. WhatsApp tidak valid. Harus diawali 08 dan diikuti 7-11 digit angka.', 'error');
+        return;
+      }
+
+      if (!pesan) {
+        showMessage('Silakan pilih Ya atau Tidak.', 'error');
+        return;
+      }
+
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Mengirim...';
+
+      const formData = new FormData();
+      formData.append('Nama Pemesan', nama);
+      formData.append('No WA', wa);
+      formData.append('Wilayah', wilayah);
+      formData.append('Lingkungan', lingkungan);
+      formData.append('Pesan/Tidak', pesan);
+
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
+          form.reset();
+          lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
+          lingkunganSelect.disabled = true;
+        } else if (result.result === 'duplicate') {
+          showMessage('Lingkungan ini sudah pernah memesan. Silakan pilih Lingkungan lain.', 'error');
+        } else {
+          showMessage(result.message || 'Terjadi kesalahan. Coba lagi.', 'error');
+        }
+      } catch (err) {
+        showMessage('Gagal mengirim data. Periksa koneksi internet Anda.', 'error');
+        console.error(err);
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Kirim Pemesanan';
+      }
+    });
+
+    function showMessage(text, type) {
+      messageDiv.textContent = text;
+      messageDiv.className = 'message ' + type;
+      messageDiv.style.display = 'block';
+      messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>
