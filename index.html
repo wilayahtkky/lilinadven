@@ -241,7 +241,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn-submit" id="btnSubmit">Kirim Pemesanan</button>
+        <button type="submit" class="btn-submit" id="btnSubmit">Kirim</button>
       </form>
 
       <div id="message" class="message"></div>
@@ -360,7 +360,7 @@
       const result = JSON.parse(text);
 
       if (result.result === 'success') {
-        showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
+        showMessage('Terima kasih! Pesan anda berhasil dikirim.', 'success');
         form.reset();
         lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
         lingkunganSelect.disabled = true;
@@ -374,7 +374,7 @@
       showMessage('Gagal mengirim data: ' + err.message, 'error');
     } finally {
       btnSubmit.disabled = false;
-      btnSubmit.textContent = 'Kirim Pemesanan';
+      btnSubmit.textContent = 'Kirim..';
     }
   });
 
