@@ -346,24 +346,39 @@
 		'Pesan/Tidak': pesan
 	  };
 
-	  try {
-		const response = await fetch(SCRIPT_URL, {
-		  method: 'POST',
-		  mode: 'no-cors',                 // penting untuk hindari CORS
-		  headers: {
-			'Content-Type': 'text/plain;charset=utf-8'
-		  },
-		  body: JSON.stringify(payload)
-		});
+	try {
+	  const response = await fetch(SCRIPT_URL, {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'text/plain;charset=utf-8'
+		},
+		body: JSON.stringify(payload)
+	  });
 
-		// Karena mode no-cors, kita tidak bisa baca response.
-		// Kita anggap berhasil setelah request terkirim.
+	  const text = await response.text();
+	  console.log('Response:', text);
+
+	  const result = JSON.parse(text);
+
+	  if (result.result === 'success') {
 		showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
 		form.reset();
 		lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
 		lingkunganSelect.disabled = true;
+	  } else if (result.result === 'duplicate') {
+		showMessage('Lingkungan ini sudah pernah memesan. Silakan pilih Lingkungan lain.', 'error');
+	  } else {
+		showMessage(result.message || 'Terjadi kesalahan.', 'error');
+	  }
 
-	  } catch (err) {
+	} catch (err) {
+  console.error(err);
+  showMessage('Gagal mengirim data: ' + err.message, 'error');
+} finally {
+  btnSubmit.disabled = false;
+  btnSubmit.textContent = 'Kirim Pemesanan';
+} 
+	  catch (err) {
 		console.error(err);
 		showMessage('Gagal mengirim data. Coba lagi atau periksa koneksi.', 'error');
 	  } finally {
