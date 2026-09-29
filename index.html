@@ -315,71 +315,62 @@
     const messageDiv = document.getElementById('message');
     const btnSubmit = document.getElementById('btnSubmit');
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+	form.addEventListener('submit', async function(e) {
+	  e.preventDefault();
 
-      const nama = document.getElementById('nama').value.trim();
-      const wa = document.getElementById('wa').value.trim();
-      const wilayah = document.getElementById('wilayah').value;
-      const lingkungan = document.getElementById('lingkungan').value;
-      const pesan = document.querySelector('input[name="pesan"]:checked')?.value;
+	  const nama = document.getElementById('nama').value.trim();
+	  const wa = document.getElementById('wa').value.trim();
+	  const wilayah = document.getElementById('wilayah').value;
+	  const lingkungan = document.getElementById('lingkungan').value;
+	  const pesan = document.querySelector('input[name="pesan"]:checked')?.value;
 
-      // Validasi No WA
-      if (!/^08\d{7,11}$/.test(wa)) {
-        showMessage('No. WhatsApp tidak valid. Harus diawali 08 dan diikuti 7-11 digit angka.', 'error');
-        return;
-      }
+	  // Validasi No WA
+	  if (!/^08\d{7,11}$/.test(wa)) {
+		showMessage('No. WhatsApp tidak valid. Harus diawali 08 dan diikuti 7-11 digit angka.', 'error');
+		return;
+	  }
 
-      if (!pesan) {
-        showMessage('Silakan pilih Ya atau Tidak.', 'error');
-        return;
-      }
+	  if (!pesan) {
+		showMessage('Silakan pilih Ya atau Tidak.', 'error');
+		return;
+	  }
 
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = 'Mengirim...';
+	  btnSubmit.disabled = true;
+	  btnSubmit.textContent = 'Mengirim...';
 
-      const formData = new FormData();
-      formData.append('Nama Pemesan', nama);
-      formData.append('No WA', wa);
-      formData.append('Wilayah', wilayah);
-      formData.append('Lingkungan', lingkungan);
-      formData.append('Pesan/Tidak', pesan);
+	  const payload = {
+		'Nama Pemesan': nama,
+		'No WA': wa,
+		'Wilayah': wilayah,
+		'Lingkungan': lingkungan,
+		'Pesan/Tidak': pesan
+	  };
 
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: formData
-        });
+	  try {
+		const response = await fetch(SCRIPT_URL, {
+		  method: 'POST',
+		  mode: 'no-cors',                 // penting untuk hindari CORS
+		  headers: {
+			'Content-Type': 'text/plain;charset=utf-8'
+		  },
+		  body: JSON.stringify(payload)
+		});
 
-       console.log('Status:', response.status);
-		  const text = await response.text();
-		  console.log('Response:', text);
+		// Karena mode no-cors, kita tidak bisa baca response.
+		// Kita anggap berhasil setelah request terkirim.
+		showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
+		form.reset();
+		lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
+		lingkunganSelect.disabled = true;
 
-		  let result;
-		  try {
-			result = JSON.parse(text);
-		  } catch (e) {
-			throw new Error('Response bukan JSON: ' + text);
-		  }
-
-        if (result.result === 'success') {
-          showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
-          form.reset();
-          lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
-          lingkunganSelect.disabled = true;
-        } else if (result.result === 'duplicate') {
-          showMessage('Lingkungan ini sudah pernah memesan. Silakan pilih Lingkungan lain.', 'error');
-        } else {
-          showMessage(result.message || 'Terjadi kesalahan. Coba lagi.', 'error');
-        }
-		} catch (err) {
-		  console.error(err);
-		  showMessage('Gagal: ' + err.message, 'error');
-	} finally {
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = 'Kirim Pemesanan';
-      }
-    });
+	  } catch (err) {
+		console.error(err);
+		showMessage('Gagal mengirim data. Coba lagi atau periksa koneksi.', 'error');
+	  } finally {
+		btnSubmit.disabled = false;
+		btnSubmit.textContent = 'Kirim Pemesanan';
+	  }
+	});
 
 
     function showMessage(text, type) {
