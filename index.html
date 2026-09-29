@@ -365,7 +365,7 @@
         lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
         lingkunganSelect.disabled = true;
       } else if (result.result === 'duplicate') {
-        showMessage('Lingkungan anda sudah pernah memesan. Silakan croos cek dengan pengurus lain.', 'error');
+        showMessage('Lingkungan anda sudah pernah memesan. Silakan cross check dengan pengurus lain.', 'error');
       } else {
         showMessage(result.message || 'Terjadi kesalahan.', 'error');
       }
