@@ -345,42 +345,33 @@
       formData.append('Lingkungan', lingkungan);
       formData.append('Pesan/Tidak', pesan);
 
-		try {
-		  const response = await fetch(SCRIPT_URL, {
-			method: 'POST',
-			body: formData
-		  });
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
 
-		  console.log('Status:', response.status);
-		  const text = await response.text();
-		  console.log('Response:', text);
+        const result = await response.json();
 
-		  let result;
-		  try {
-			result = JSON.parse(text);
-		  } catch (e) {
-			throw new Error('Response bukan JSON: ' + text);
-		  }
-
-		  if (result.result === 'success') {
-			showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
-			form.reset();
-			lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
-			lingkunganSelect.disabled = true;
-		  } else if (result.result === 'duplicate') {
-			showMessage('Lingkungan ini sudah pernah memesan. Silakan pilih Lingkungan lain.', 'error');
-		  } else {
-			showMessage(result.message || 'Terjadi kesalahan. Coba lagi.', 'error');
-		  }
-		} catch (err) {
-		  console.error(err);
-		  showMessage('Gagal: ' + err.message, 'error');
-		
+        if (result.result === 'success') {
+          showMessage('Terima kasih! Pemesanan berhasil dikirim.', 'success');
+          form.reset();
+          lingkunganSelect.innerHTML = '<option value="">-- Pilih Wilayah dulu --</option>';
+          lingkunganSelect.disabled = true;
+        } else if (result.result === 'duplicate') {
+          showMessage('Lingkungan ini sudah pernah memesan. Silakan pilih Lingkungan lain.', 'error');
+        } else {
+          showMessage(result.message || 'Terjadi kesalahan. Coba lagi.', 'error');
+        }
+      } catch (err) {
+        showMessage('Gagal mengirim data. Periksa koneksi internet Anda.', 'error');
+        console.error(err);
       } finally {
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'Kirim Pemesanan';
       }
     });
+
 
     function showMessage(text, type) {
       messageDiv.textContent = text;
